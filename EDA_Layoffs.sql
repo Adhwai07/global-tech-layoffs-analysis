@@ -20,13 +20,15 @@ FROM layoffs_staging2;
 -- Total layoffs by industry
 SELECT industry, SUM(total_laid_off) AS Total_Laid_Off
 FROM layoffs_staging2
-GROUP BY industry;
+GROUP BY industry
+ORDER BY 2 DESC;
 
 -- Total layoffs by country
 SELECT country, SUM(total_laid_off) AS Total_Laid_Off
 FROM layoffs_staging2
 GROUP BY country
-ORDER BY Total_Laid_Off DESC;
+ORDER BY Total_Laid_Off DESC
+limit 7;
 
 -- Total layoffs by funding stage
 SELECT stage, SUM(total_laid_off) AS Total_Laid_Off
@@ -64,8 +66,212 @@ WITH rolling_total AS (
 SELECT *, SUM(Total) OVER (ORDER BY Layoff_Date) AS Rolling_Total
 FROM rolling_total;
 
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- 4. INDUSTRY-LEVEL TRENDS AND DISPARITIES
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- These queries explore industry-wise layoff trends over years,
+-- and identify outliers or spikes in layoffs by comparing across years.
+-- For each industry, we look at yearly totals and then deep-dive into the year
+-- with the largest layoff to explore top companies, percentage laid off,
+-- and funding raised to understand the context.
+
+-- Yearly trend for 'Consumer' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Consumer'
+group by year(`date`)
+order by 1 asc;
+
+-- Deep dive into 2022 for 'Consumer' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Consumer'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Retail' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Retail'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2022 for 'Retail' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Retail'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+
+--  Yearly trend for 'Transportation' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Transportation'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2022 for 'Transportation' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Transportation'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Finance' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Finance'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2022 for 'Finance' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Finance'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Healthcare' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Healthcare'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2022 for 'Healthcare' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Healthcare'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Food' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Food'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2022 for 'Food' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Food'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Real Estate' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Real Estate'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2022 for 'Real Estate' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Real Estate'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Travel' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Travel'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2020 for 'Travel' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Travel'
+and year(`date`) = 2020
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Education' industry
+select industry, year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Education'
+group by industry, year(`date`)
+order by 2 asc;
+
+--  Deep dive into 2022 for 'Education' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Education'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Hardware' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Hardware'
+group by year(`date`)
+order by 1 asc;
+
+--  Deep dive into 2023 for 'Hardware' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Hardware'
+and year(`date`) = 2023
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Sales' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Sales'
+group by year(`date`)
+order by 1 asc;
+
+
+--  Deep dive into 2023 for 'Sales' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Sales'
+and year(`date`) = 2023
+order by 3 desc, 5 desc;
+
+
+--  Yearly trend for 'Crypto' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Crypto'
+group by year(`date`)
+order by 1 asc;
+
+-- Deep dive into 2022 for 'Crypto' industry
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Crypto'
+and year(`date`) = 2022
+order by 3 desc, 5 desc;
+
+--  Yearly trend for 'Marketing' industry
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Marketing'
+group by year(`date`)
+order by 1 asc;
+
+--  Yearly trend for the other industries that haven't been mentioned
+select year(`date`),sum(total_laid_off) as Total_Layoffs
+from layoffs_staging2
+where industry = 'Other'
+and year(`date`) is not null
+group by year(`date`)
+order by 1 asc;
+
+-- Deep dive into 2023 those industries
+select company, industry, total_laid_off, percentage_laid_off, funds_raised_millions
+from layoffs_staging2
+where industry = 'Other'
+and year(`date`) = 2023
+order by 3 desc, 5 desc;
+
+
 -- ───────────────────────────────────────────────────────────────
---  4. COMPANY-LEVEL ANALYSIS
+--  5. COMPANY-LEVEL ANALYSIS
 -- ───────────────────────────────────────────────────────────────
 
 -- Top 10 companies with the highest total layoffs
@@ -81,7 +287,7 @@ FROM layoffs_staging2
 WHERE total_laid_off IS NOT NULL
 GROUP BY company, country
 HAVING Number_of_Layoffs > 1
-ORDER BY Total DESC;
+ORDER BY 3 DESC;
 
 
 -- Top 5 companies with highest layoffs per stage
@@ -98,7 +304,7 @@ SELECT * FROM ranked_layoffs
 WHERE Rankings <= 5;
 
 -- ───────────────────────────────────────────────────────────────
---  5. COUNTRY / INDUSTRY DEEP DIVES
+--  6. COUNTRY / INDUSTRY DEEP DIVES
 -- ───────────────────────────────────────────────────────────────
 
 -- Top 5 companies by total layoffs in each country
@@ -128,21 +334,21 @@ SELECT * FROM ranking
 WHERE `Rank` <= 5;
 
 -- ───────────────────────────────────────────────────────────────
---  6. EXTREME CASES: FULL LAYOFFS, COLLAPSE, BANKRUPTCY SIGNALS
+--  7. EXTREME CASES: FULL LAYOFFS, COLLAPSE, BANKRUPTCY SIGNALS
 -- ───────────────────────────────────────────────────────────────
 
 -- Companies that laid off 100% of their staff
 SELECT * FROM layoffs_staging2
 WHERE percentage_laid_off = 1
-ORDER BY funds_raised_millions DESC;
+ORDER BY funds_raised_millions DESC;  
 
 -- Companies that laid off 100% and raised funds — possible sudden collapse
 SELECT company, industry, stage, country, COUNT(*) AS Layoff_Count,
-       SUM(funds_raised_millions) AS Total_Funds_Raised,
-       MAX(percentage_laid_off) AS Percentage_Laid_Off
+       SUM(funds_raised_millions) AS Total_Funds_Raised
 FROM layoffs_staging2
+WHERE percentage_laid_off = 1
 GROUP BY company, industry, stage, country
-HAVING Percentage_Laid_Off = 1 AND Total_Funds_Raised IS NOT NULL
+HAVING SUM(funds_raised_millions) IS NOT NULL
 ORDER BY Total_Funds_Raised DESC;
 
 -- Layoff count per stage where companies fully laid off (shutdown pattern)
@@ -162,7 +368,7 @@ GROUP BY industry
 ORDER BY Total_Bankruptcies DESC;
 
 -- ───────────────────────────────────────────────────────────────
---  7. COMPANY SIZE CLASSIFICATION: STARTUP vs INTERMEDIATE vs MNC
+--  8. COMPANY SIZE CLASSIFICATION: STARTUP vs INTERMEDIATE vs MNC
 -- ───────────────────────────────────────────────────────────────
 
 -- Classify companies by funding stage and show which ones laid off 100%
@@ -182,7 +388,7 @@ GROUP BY company_size_bin
 ORDER BY Company_Count DESC;
 
 -- ───────────────────────────────────────────────────────────────
---  8. INDUSTRY-LEVEL YEARLY TRENDS
+--  9. INDUSTRY-LEVEL YEARLY TRENDS
 -- ───────────────────────────────────────────────────────────────
 
 -- Top 5 most affected industries by layoffs each year
