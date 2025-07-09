@@ -148,7 +148,7 @@ Another major surge occurred in January 2023, which alone added nearly 89,000 la
 
 These compounding effects reveal the momentum of layoffs during economic corrections — once companies begin restructuring, the trend tends to accelerate rapidly and cluster within short periods, especially across consecutive quarters.
 
-### Industry level trends and disparities
+### Industry Level Trends and Disparities
 
 #### Sales Industry Layoffs in 2023
 In 2023, the Sales industry experienced one of the highest layoff volumes, with major contributions from companies such as Salesforce, which conducted multiple large-scale layoffs throughout the year. Two primary factors drove this trend:
